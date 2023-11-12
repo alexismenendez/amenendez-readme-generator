@@ -73,8 +73,10 @@ function init() {
         .prompt(questions)
         .then((data) => {
             console.log(data);
-        })
-}
+            const generatedMarkdown = generateMarkdown(data);
+            writeToFile("./assets/generatedREADME.md", generatedMarkdown);
+        });
+};
 
 // Function call to initialize app
 init();
