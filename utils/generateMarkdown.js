@@ -1,26 +1,52 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
+// ✓TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-function renderLicenseBadge(license) {}
+function renderLicenseBadge(license) {
+  var licenseBadge
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {
-  if (data.license === "Apache license 2.0") {
-    userLicense = ""
-  } else if (data.license === "Mozilla Public License 2.0") {
-    userLicense = ""
+  if (license === "Apache license 2.0") {
+    licenseBadge = "![Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)"
+  } else if (license === "Mozilla Public License 2.0") {
+    licenseBadge = "![Mozilla Public License 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)"
   } else {
-    userLicense = ""
-  }
+    licenseBadge = ""
+  };
+
+  return licenseBadge;
 }
 
-// TODO: Create a function that returns the license section of README
+// ✓TODO: Create a function that returns the license link
 // If there is no license, return an empty string
-function renderLicenseSection(license) {}
+function renderLicenseLink(license) {
+  var userLicense
 
-// TODO: Create a function to generate markdown for README
+  if (license === "Apache license 2.0") {
+    userLicense = "[Apache License 2.0](https://opensource.org/license/apache-2-0/)"
+  } else if (license === "Mozilla Public License 2.0") {
+    userLicense = "[Mozilla Public License 2.0](https://opensource.org/license/mpl-2-0/)"
+  } else {
+    userLicense = ""
+  };
+
+  return userLicense;
+}
+
+// ✓TODO: Create a function that returns the license section of README
+// If there is no license, return an empty string
+function renderLicenseSection(license) {
+  var readmeLicense
+
+  if (license === "Apache license 2.0" || license === "Mozilla Public License 2.0") {
+    readmeLicense = `## License<br>${renderLicenseBadge(license)}<br>${renderLicenseLink(license)}`
+  } else {
+    readmeLicense = ""
+  }
+
+  return readmeLicense
+}
+
+// ✓TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-
+if (data.tableContents === true) {
   return `# ${data.title}
   ${data.description}
   
@@ -45,15 +71,37 @@ function generateMarkdown(data) {
   ## Tests
   ${data.tests}
   
-  ## ${data.license}
-  ${userLicense}
+  ${renderLicenseSection(data.license)}
   
   ## Questions?
   Contact me!
   
-  Github: [${data.github}](https://github.com/${data.github})
-  Email: ${data.email}
+  Github: [${data.github}](https://github.com/${data.github})<br>Email: ${data.email}
 `;
+} else {
+  return `# ${data.title}
+  ${data.description}
+
+  ## Installation
+  ${data.installation}
+  
+  ## Usage
+  ${data.usage}
+  
+  ## Contributing
+  ${data.contributing}
+  
+  ## Tests
+  ${data.tests}
+  
+  ${renderLicenseSection(data.license)}
+  
+  ## Questions?
+  Contact me!
+  
+  Github: [${data.github}](https://github.com/${data.github})<br>Email: ${data.email}
+`;
+}
 }
 
 module.exports = generateMarkdown;
